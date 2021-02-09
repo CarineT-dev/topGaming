@@ -45,7 +45,9 @@ public class seDeconnecterServlet extends HttpServlet {
        
        response.addCookie(c01);
         
+
        request.getRequestDispatcher("accueil").include(request,response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
