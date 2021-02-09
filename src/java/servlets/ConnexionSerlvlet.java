@@ -60,8 +60,9 @@ public class ConnexionSerlvlet extends HttpServlet {
         }
         GestionMembre gtMembre = (GestionMembre) getServletContext().getAttribute("gestionMembre");
 
-        String urlJSP = "/WEB-INF/accueil.jsp";
+        String urlJSP = "accueil";
         System.out.println(res[0]);
+        Boolean ok = true;
         try {
             Membre user = gtMembre.SeConnecter(pseudo, pwd);
             session.setAttribute("user", user);
@@ -87,14 +88,17 @@ public class ConnexionSerlvlet extends HttpServlet {
            request.setAttribute("errPseudo", erreurs.get("errPseudo"));
            
            request.setAttribute("errPassword", erreurs.get("errPassword"));
-        
+           
            urlJSP = "/WEB-INF/connexion.jsp";
+           ok = false;
+           getServletContext().getRequestDispatcher(urlJSP).include(request, response);
            
         } catch (SQLException ex) {
               System.out.println("erreur 02 sql :" + ex.getMessage());
         }
-        
+        if(ok){
          request.getRequestDispatcher("accueil").include(request,response);
+        }
         //getServletContext().getRequestDispatcher(urlJSP).include(request, response);
     }
 

@@ -67,7 +67,7 @@ public class InscriptionSiteServlet extends HttpServlet {
         String cp = request.getParameter("Cp");
         cp = cp.trim();
         String tel = request.getParameter("Tel");    
-       
+        boolean ok = true;
        
 
         String dateNaissance = request.getParameter("dateNaissance");
@@ -110,7 +110,8 @@ public class InscriptionSiteServlet extends HttpServlet {
             request.setAttribute("Tel", request.getParameter("Tel"));
 
             urlJSP = "/WEB-INF/inscription.jsp";
-
+            ok = false;
+           getServletContext().getRequestDispatcher(urlJSP).include(request, response);
         } catch (NullPointerException pointer) {
             urlJSP = "/WEB-INF/inscription.jsp";
         } catch (SQLException ex) {
@@ -119,8 +120,9 @@ public class InscriptionSiteServlet extends HttpServlet {
        
         request.setAttribute("inscrit", pseudo);
         
-        request.getRequestDispatcher("accueil").include(request,response);
-        //getServletContext().getRequestDispatcher(urlJSP).include(request, response);
+        if(ok){
+         request.getRequestDispatcher("accueil").include(request,response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
